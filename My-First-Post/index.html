@@ -1,0 +1,841 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Javascript," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="xinpureZhu" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="JS 原生事件并没有长按事件，但是我们可以利用一些原有的事件，来实现长按事件
+
+任务需求最近在工作上遇到一个特殊的需求，就是需要实现长按来增加或者减少数值
+这就类似于，购物车中的物品数量的加减按钮，单击按钮物品数量相应增加或者减少一个数量，利用长按来实现快速增加或者减少物品数量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="My First Post">
+<meta property="og:url" content="http://xinpure.com/My-First-Post/index.html">
+<meta property="og:site_name" content="xinpureZhu">
+<meta property="og:description" content="JS 原生事件并没有长按事件，但是我们可以利用一些原有的事件，来实现长按事件
+
+任务需求最近在工作上遇到一个特殊的需求，就是需要实现长按来增加或者减少数值
+这就类似于，购物车中的物品数量的加减按钮，单击按钮物品数量相应增加或者减少一个数量，利用长按来实现快速增加或者减少物品数量">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/708972/201605/708972-20160511110048015-1999018068.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/708972/201605/708972-20160511141508499-1896745175.gif">
+<meta property="og:updated_time" content="2016-05-17T08:37:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="My First Post">
+<meta name="twitter:description" content="JS 原生事件并没有长按事件，但是我们可以利用一些原有的事件，来实现长按事件
+
+任务需求最近在工作上遇到一个特殊的需求，就是需要实现长按来增加或者减少数值
+这就类似于，购物车中的物品数量的加减按钮，单击按钮物品数量相应增加或者减少一个数量，利用长按来实现快速增加或者减少物品数量">
+<meta name="twitter:image" content="http://images2015.cnblogs.com/blog/708972/201605/708972-20160511110048015-1999018068.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> My First Post | xinpureZhu </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xinpureZhu</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">测试这个博客</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                My First Post
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-05-17T10:40:23+08:00" content="2015-05-17">
+              2015-05-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/My-First-Post/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="My-First-Post/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/My-First-Post/" class="leancloud_visitors" data-flag-title="My First Post">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>JS 原生事件并没有长按事件，但是我们可以利用一些原有的事件，来实现长按事件</p>
+</blockquote>
+<h2 id="任务需求"><a href="#任务需求" class="headerlink" title="任务需求"></a>任务需求</h2><p>最近在工作上遇到一个特殊的需求，就是需要实现长按来增加或者减少数值</p>
+<p>这就类似于，购物车中的物品数量的加减按钮，单击按钮物品数量相应增加或者减少一个数量，利用长按来实现快速增加或者减少物品数量</p>
+<p><img src="http://images2015.cnblogs.com/blog/708972/201605/708972-20160511110048015-1999018068.png" alt="JS如何利用定时器实现长按事件"></p>
+<a id="more"></a>
+<h2 id="思考方法"><a href="#思考方法" class="headerlink" title="思考方法"></a>思考方法</h2><p>在知道这个需求之后，开始还是比较茫然的</p>
+<p>虽然在之前我也在一些购物 APP 里见到过这种长按的功能，但是在 JS 里似乎并没有长按事件</p>
+<p>后来我就在想，怎么样利用现有的一些事件来实现这一功能呢？</p>
+<p>这个时候我想到了 <code>mousedown</code> 和 <code>mouseup</code> 这两个事件</p>
+<p>当时我就想，如果在 <code>mousedown</code> 事件触发的时候，利用 <code>setTimeout</code> 或者 <code>setInterval</code> 定时增加或者减少数值</p>
+<p>然后在 <code>mouseup</code> 事件触发的时候，利用 <code>clearTimeout</code> 或者 <code>clearInterval</code> 清除定时器</p>
+<p>这样是不是就能实现这样的需求呢？</p>
+<h2 id="实践想法"><a href="#实践想法" class="headerlink" title="实践想法"></a>实践想法</h2><p>既然有了想法，就要付诸实践</p>
+<p>我写了个例子来测试这个想法，结果却并没有想得这么简单</p>
+<p>当我通过鼠标按住按钮之后，数值是不断的增加或者减少，但是即使我松开鼠标，数值却并没有停止，而是依然为不断的增加或者减少</p>
+<p>这时我就疑惑了，理论上说，在 <code>mouseup</code> 事件触发之后，定时器应该是已经被清除的，为何没有清除呢？</p>
+<p>带着疑惑，我开始了 <code>Google</code></p>
+<p><code>Google</code> 将我指引到了 <a href="https://jquerymobile.com/" target="_blank" rel="external">Jquery Mobile</a> 库</p>
+<p>这个类库实现了一个 <code>taphold</code> 事件，就是我想要的长按事件</p>
+<p>既然已经有了类似的实现，我就在想，是不是我哪里想错了？</p>
+<p>然后我就查看了 <code>Jquery Mobile</code> 关于 <code>taphold</code> 的源码</p>
+<p>看完源码后，我惊喜的发现，原来他也是利用 <code>setTimeout</code> 来实现的这一事件，证明我的想法是对的！</p>
+<p>带着惊喜，我开始分析我思考的不足的地方。</p>
+<p>最后我发现，原来是我没有做好对事件的监听</p>
+<p>我只是单纯的绑定了 <code>mousedown</code> 和 <code>mouseup</code> 两个事件，这是我在 JS 事件处理上的不足</p>
+<h2 id="完善实现"><a href="#完善实现" class="headerlink" title="完善实现"></a>完善实现</h2><p>知道了问题之后，我就开始修改之前写的例子</p>
+<p>采用 <code>Jquery Mobile</code> 库对事件的处理方式，来实现这个长按的功能，并且也根据自身的需求进行修改</p>
+<p>在修改的过程中，我发现了一个问题，就是当我长按一个按钮的时候，如果我移动鼠标，长按事件也会一直持续下去，并且放开鼠标也不会停止</p>
+<p>在翻看 JS 事件的之后，我找到了 <code>mouseleave</code> 这个事件，就是当鼠标离开按钮之后，会触发这个事件，加上之后，问题也得己解决。</p>
+<p>为了兼容移动设备，我加上了对 <code>touchstart</code> 、<code>touchend</code> 、<code>touchcencel</code> 几个事件的监听</p>
+<p>本来也想加上 <code>touchleave</code> 事件，来处理触摸时用户移动到按钮外的情况，但是似乎这个事件已经被废弃掉了：</p>
+<blockquote>
+<p>This event was a proposal in an early version of the specification and has not been implemented. Do not rely on it. —— <a href="https://developer.mozilla.org/en-US/docs/Web/Events/touchleave" target="_blank" rel="external">MDN</a></p>
+</blockquote>
+<p>也尝试了使用 <code>touchmove</code> 事件来代替，但是似乎会影响用户体验</p>
+<p>因为添加了这个事件之后，就算是在按钮上触摸移动，也会触发 <code>touchmove</code> 事件</p>
+<p>所以如果是用户误操作的话，也会中止长按操作。</p>
+<p>不过，<code>touch</code> 事件并不会像 <code>mouse</code> 事件一样，触摸移动到按钮外之后再放开手指，事件还是可以正常处理，并不会影响使用</p>
+<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><h3 id="JS-Code"><a href="#JS-Code" class="headerlink" title="JS Code"></a>JS Code</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">var tapParams = &#123;</span><br><span class="line">    timer: &#123;&#125;,</span><br><span class="line">    element: &#123;&#125;,</span><br><span class="line">    tapStartTime: 0,</span><br><span class="line">    type: &apos;increment&apos;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function clearTapTimer() &#123;</span><br><span class="line">    clearTimeout(tapParams.timer);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function clearTapHandlers() &#123;</span><br><span class="line">    clearTapTimer();</span><br><span class="line"></span><br><span class="line">    $(tapParams.element).unbind(&apos;mouseup&apos;, clearTapTimer)</span><br><span class="line">        .unbind(&apos;mouseleave&apos;, clearTapHandlers);</span><br><span class="line"></span><br><span class="line">    //移动设备</span><br><span class="line">    $(tapParams.element).unbind(&apos;touchend&apos;, clearTapTimer)</span><br><span class="line">        .unbind(&apos;touchcencel&apos;, clearTapHandlers);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function tapEvent(aEvent, aType) &#123;</span><br><span class="line"></span><br><span class="line">    //阻止默认事件并解除冒泡</span><br><span class="line">    aEvent.preventDefault();</span><br><span class="line">    aEvent.stopPropagation();</span><br><span class="line"></span><br><span class="line">    tapParams = &#123;</span><br><span class="line">        element: aEvent.target,</span><br><span class="line">        startTime: new Date().getTime() / 1000,</span><br><span class="line">        type: aType</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    $(tapParams.element).bind(&apos;mouseup&apos;, clearTapTimer)</span><br><span class="line">        .bind(&apos;mouseleave&apos;, clearTapHandlers);</span><br><span class="line"></span><br><span class="line">    //移动设备</span><br><span class="line">    $(tapParams.element).bind(&apos;touchend&apos;, clearTapTimer)</span><br><span class="line">        .bind(&apos;touchcencel&apos;, clearTapHandlers);</span><br><span class="line"></span><br><span class="line">    changeNumber();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function changeNumber() &#123;</span><br><span class="line"></span><br><span class="line">    var currentDate = new Date().getTime() / 1000;</span><br><span class="line">    var intervalTime = currentDate - tapParams.startTime;</span><br><span class="line"></span><br><span class="line">    //根据长按的时间改变数值变化幅度</span><br><span class="line">    if (intervalTime &lt; 1) &#123;</span><br><span class="line">        intervalTime = 0.5;</span><br><span class="line">    &#125;</span><br><span class="line">    var secondCount = intervalTime * 10;</span><br><span class="line">    if (intervalTime == 3) &#123;</span><br><span class="line">        secondCount = 50;</span><br><span class="line">    &#125;</span><br><span class="line">    if (intervalTime &gt;= 4) &#123;</span><br><span class="line">        secondCount = 100;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var numberElement = $(&apos;.number&apos;);</span><br><span class="line">    var currentNumber = parseInt(numberElement.val());</span><br><span class="line"></span><br><span class="line">    if (tapParams.type == &apos;increment&apos;) &#123;</span><br><span class="line">        currentNumber += 1;</span><br><span class="line">    &#125; else if (tapParams.type == &apos;decrement&apos;) &#123;</span><br><span class="line">        currentNumber -= 1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    numberElement.val(currentNumber &lt;= 0 ? 1 : currentNumber);</span><br><span class="line"></span><br><span class="line">    tapParams.timer = setTimeout(&apos;changeNumber()&apos;, 1000 / secondCount);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="HTML-Code"><a href="#HTML-Code" class="headerlink" title="HTML Code"></a>HTML Code</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;section&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;decrement&quot; onmousedown=&quot;tapEvent(event, &apos;decrement&apos;)&quot; ontouchstart=&quot;tapEvent(event, &apos;decrement&apos;)&quot;&gt;－&lt;/div&gt;</span><br><span class="line">        &lt;input class=&quot;number&quot; value=&quot;1&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;increment&quot; onmousedown=&quot;tapEvent(event, &apos;increment&apos;)&quot; ontouchstart=&quot;tapEvent(event, &apos;increment&apos;)&quot;&gt;＋&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="CSS-Code"><a href="#CSS-Code" class="headerlink" title="CSS Code"></a>CSS Code</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">.section &#123;</span><br><span class="line">    display: -webkit-flex;</span><br><span class="line">    display: flex;</span><br><span class="line">    -webkit-justify-content: center;</span><br><span class="line">    justify-content: center;</span><br><span class="line">    -webkit-flex-flow: row nowrap;</span><br><span class="line">    flex-flow: row nowrap;</span><br><span class="line">    -webkit-align-items: center;</span><br><span class="line">    align-items: center;</span><br><span class="line">    height: 30px;</span><br><span class="line">    width: 130px;</span><br><span class="line">    font-size: 16px;</span><br><span class="line">&#125;</span><br><span class="line">.number &#123;</span><br><span class="line">	-webkit-flex: 1;</span><br><span class="line">    flex: 1;</span><br><span class="line">    width: 30px;</span><br><span class="line">    height: 30px;</span><br><span class="line">    border: 1px solid #000;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    border-radius: 5px;</span><br><span class="line">    margin: 0 10px;</span><br><span class="line">    text-align: center;</span><br><span class="line">&#125;</span><br><span class="line">.decrement, .increment &#123;</span><br><span class="line">    width: 30px;</span><br><span class="line">    height: 30px;</span><br><span class="line">    border: 1px solid #000;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    border-radius: 5px;</span><br><span class="line">    text-align: center;</span><br><span class="line">    line-height: 28px;</span><br><span class="line">    cursor: pointer;</span><br><span class="line">    font-size: 20px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><p><img src="http://images2015.cnblogs.com/blog/708972/201605/708972-20160511141508499-1896745175.gif" alt="JS如何利用定时器实现长按事件"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag">#Javascript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="xinpureZhu" />
+          <p class="site-author-name" itemprop="name">xinpureZhu</p>
+          <p class="site-description motion-element" itemprop="description">测试这个博客</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpureZhu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/xinpure" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://sollyu.com/" title="Sollyu" target="_blank">Sollyu</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://0x520.com/" title="鸡哥" target="_blank">鸡哥</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#任务需求"><span class="nav-number">1.</span> <span class="nav-text">任务需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考方法"><span class="nav-number">2.</span> <span class="nav-text">思考方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实践想法"><span class="nav-number">3.</span> <span class="nav-text">实践想法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完善实现"><span class="nav-number">4.</span> <span class="nav-text">完善实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最终代码"><span class="nav-number">5.</span> <span class="nav-text">最终代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JS-Code"><span class="nav-number">5.1.</span> <span class="nav-text">JS Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-Code"><span class="nav-number">5.2.</span> <span class="nav-text">HTML Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS-Code"><span class="nav-number">5.3.</span> <span class="nav-text">CSS Code</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果展示"><span class="nav-number">6.</span> <span class="nav-text">效果展示</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xinpureZhu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'xinpure';
+      var disqus_identifier = 'My-First-Post/';
+      var disqus_title = 'My First Post';
+      var disqus_url = 'http://xinpure.com/My-First-Post/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("NoTFWVizNAHHUYpSGuIoFvEp-gzGzoHsz", "fo0gb0R5R2U5qL30NQRKMqLe");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
